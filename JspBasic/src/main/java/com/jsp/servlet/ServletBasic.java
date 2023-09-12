@@ -51,20 +51,20 @@ public class ServletBasic extends HttpServlet{
 //    	- 매개값으로 요청, 응답 내장 객체가 전달됩니다. 
 //        */
 //		
-////		// 요청 방식이 뭐니?
-////		String method = request.getMethod();
-////		// 요청 URL가 뭐니?
-////		String uri = request.getRequestURI();
-////		// 요청 파라미터
-////		String queryString = request.getQueryString();
-////		// 요청을 보낸 IP 주소
-////		String addr = request.getRemoteAddr();
-////		
-////		System.out.println("----- 값 확인하기 -----");
-////		System.out.println("method: " + method);
-////		System.out.println("uri " + uri);
-////		System.out.println("queryString: " + queryString);
-////		System.out.println("addr: " + addr);
+//		// 요청 방식이 뭐니?
+//		String method = request.getMethod();
+//		// 요청 URI가 뭐니?
+//		String uri = request.getRequestURI();
+//		// 요청 파라미터
+//		String queryString = request.getQueryString();
+//		// 요청을 보낸 IP 주소
+//		String addr = request.getRemoteAddr();
+//		
+//		System.out.println("----- 값 확인하기 -----");
+//		System.out.println("method: " + method);
+//		System.out.println("uri " + uri);
+//		System.out.println("queryString: " + queryString);
+//		System.out.println("addr: " + addr);
 //		
 //		//요청과 함께 전달된 피라미터를 낱개로 얻는 방법
 //		String account = request.getParameter("account");
@@ -78,10 +78,16 @@ public class ServletBasic extends HttpServlet{
 //		//응답하고자 하는 content의 타입과 문자열 인코딩을 셋팅.
 //		response.setContentType("text/html");
 //		response.setCharacterEncoding("UTF-8");
-//		
-//		//응답 화면 제작
-//		//자바 클래스에서 브라우저로 바로 응답을 구현하기 위해서는
-//		//PrintWriter 객체를 사용합니다.
+//		 브라우저에게 '우리는 utf-8 문자코드로 사용할거다. utf-8로 사용해줘'라는 메세지를 전달해야 한다.
+//		 이러한 메세지를 전달하는 문장이 response.setContentType("text/html;charset=utf-8");이다.
+//		 이걸 사용하지 않고 response.setCharacterEncoding("UTF-8");만 사용하면 '하이'라고 나오지 않고 '뀖땖'과 같이 처음보는 이상한
+//		 문자가 출력이 됩니다.
+//		 이는 브라우저마다 기본적으로 문자코드를 해석하는 default가 다르기 때문입니다.
+//		 그래서 우리는 브라우저에게 '우리는 utf-8 문자코드로 사용할거다. utf-8로 사용해줘'라는 response.setContentType("text/html;charset=utf-8");를 써주어야 합니다.
+		
+		//응답 화면 제작
+		//자바 클래스에서 브라우저로 바로 응답을 구현하기 위해서는
+		//PrintWriter 객체를 사용합니다.
 //		PrintWriter w = response.getWriter();
 //		
 //		String htmlCode = "";
@@ -104,18 +110,18 @@ public class ServletBasic extends HttpServlet{
 //		w.flush(); //버퍼를 비우면서 작성한 내용을 브라우저로 밀어내기
 //		w.close(); //객체 해제
 	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//http 통신 중 get 요청이 발생했을 때 자동으로 호출되는 메서드
-		//매개값으로 내장객체 request와 response가 전달되므로
-		//객체의 메서드를 통해 파라미터를 가져오거나, 페이지 이동이 가능합니다.
-		System.out.println("doGet 메서드가 호출됨!");
-		
-		System.out.println("아이디: " + req.getParameter("account"));
-		System.out.println("비밀번호: " + req.getParameter("password"));
-		System.out.println("이름: " + req.getParameter("name"));
-	}
-	
+//	@Override
+//	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		//http 통신 중 get 요청이 발생했을 때 자동으로 호출되는 메서드
+//		//매개값으로 내장객체 request와 response가 전달되므로
+//		//객체의 메서드를 통해 파라미터를 가져오거나, 페이지 이동이 가능합니다.
+//		System.out.println("doGet 메서드가 호출됨!");
+//		
+//		System.out.println("아이디: " + req.getParameter("account"));
+//		System.out.println("비밀번호: " + req.getParameter("password"));
+//		System.out.println("이름: " + req.getParameter("name"));
+//	}
+//	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//http 통신 중 post 요청이 발생했을 때 자동으로 호출되는 메서드
@@ -140,5 +146,5 @@ public class ServletBasic extends HttpServlet{
 	}
 		
 
-
+	
 }
