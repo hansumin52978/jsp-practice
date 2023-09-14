@@ -26,12 +26,16 @@ public class FrontController extends HttpServlet {
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//getRequestURI() -> String - 요청 URI를 얻습니다.
 		System.out.println("요청 URI: " + request.getRequestURI());
 		
 		String uri = request.getRequestURI();
+		//getContextPath() -> String - 웹 어플리케이션의 컨텍스트 루트의 경로를 얻습니다.
 		String conPath =  request.getContextPath(); // -> /JspBasic (컨텍스트 루트)
 		
 		// /JspBasic/join.user
+		//substring -> 문자열의 특정 부분을 잘라내는 데 사용합니다.
+		//lastIndexOf -> "."뒤에서부터 탐색 ex)/JspBasic/join.user -> user가 나온다
 		uri = uri.substring(conPath.length() +1, uri.lastIndexOf("."));
 		System.out.println("정제된 uri: " + uri);
 		
